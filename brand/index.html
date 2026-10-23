@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apodix brand guidelines</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Cardo:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --chalk:#F3F5F8; --paper:#FFFFFF; --ink:#101A33; --slate:#4A5673; --line:#D8DDE8;
+  --blue:#2447F5; --light-blue:#7F93FF;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Source Serif 4",Georgia,serif; --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--chalk); color:var(--ink); font-family:var(--body); font-size:1.1rem; line-height:1.6; -webkit-font-smoothing:antialiased; }
+a { color:inherit; }
+a:focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
+.wrap { width:min(1120px, 100% - 48px); margin-inline:auto; }
+h1,h2,h3 { font-family:var(--display); letter-spacing:-0.03em; margin:0; }
+h1 { font-weight:800; font-size:clamp(2.6rem,6vw,4.6rem); line-height:1; }
+h2 { font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); line-height:1.05; margin-bottom:14px; }
+h3 { font-weight:700; font-size:1.15rem; letter-spacing:-0.01em; margin-bottom:6px; }
+p { margin:0 0 14px; max-width:60ch; }
+.muted { color:var(--slate); }
+header.top { padding:28px 0 0; }
+header.top img { height:42px; display:block; }
+.intro { padding:72px 0 80px; }
+.intro p { font-size:1.3rem; max-width:44ch; color:#26304D; margin-top:22px; }
+section { padding:72px 0; border-top:1.5px solid var(--ink); }
+section.dark { background:var(--ink); color:#fff; }
+section.dark .muted { color:#B5C0E0; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+
+/* concept */
+.concept-art { background:var(--paper); border:1.5px solid var(--ink); border-radius:8px; padding:36px; display:flex; justify-content:center; }
+.concept-art img { width:min(320px,100%); }
+.parts { display:grid; gap:0; border-top:1.5px solid var(--ink); margin-top:8px; }
+.part { display:grid; grid-template-columns:52px 1fr; gap:14px; padding:16px 0; border-bottom:1px solid var(--line); align-items:start; }
+.part .sw { width:36px; height:36px; display:flex; align-items:center; justify-content:center; }
+.part p { margin:0; font-size:1rem; color:#26304D; }
+
+/* logo tiles */
+.tiles { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+.tile { border:1.5px solid var(--ink); border-radius:8px; min-height:230px; display:flex; align-items:center; justify-content:center; padding:32px; position:relative; }
+.tile.light { background:var(--paper); }
+.tile.dark { background:var(--ink); }
+.tile.tint { background:var(--chalk); }
+.tile.blue { background:var(--blue); }
+.tile img { max-width:100%; }
+.tile .cap { position:absolute; left:14px; bottom:10px; font-family:var(--mono); font-size:.75rem; color:var(--slate); }
+.tile.dark .cap, .tile.blue .cap { color:#C9D2F0; }
+
+/* clear space */
+.clear { position:relative; display:inline-block; padding:28px; background:
+  repeating-linear-gradient(45deg, rgba(36,71,245,.10) 0 6px, transparent 6px 12px); border:1.5px dashed var(--blue); }
+.clear img { display:block; height:84px; background:var(--paper); }
+.sizes { display:flex; gap:40px; align-items:flex-end; flex-wrap:wrap; margin-top:12px; }
+.sizes figure { margin:0; }
+.sizes figcaption { font-family:var(--mono); font-size:.75rem; color:var(--slate); margin-top:8px; }
+
+/* colours */
+.swatches { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+.sw-card { border:1.5px solid var(--ink); border-radius:8px; overflow:hidden; background:var(--paper); }
+.sw-card .chip { height:110px; }
+.sw-card .meta { padding:12px 14px 14px; font-family:var(--display); }
+.sw-card .meta strong { display:block; font-size:1rem; }
+.sw-card .meta span { display:block; font-family:var(--mono); font-size:.78rem; color:var(--slate); margin-top:2px; }
+.sw-card .meta em { display:block; font-family:var(--body); font-style:normal; font-size:.9rem; color:#26304D; margin-top:6px; line-height:1.4; }
+.verdicts { display:flex; gap:14px; flex-wrap:wrap; margin-top:24px; }
+.stamp { display:inline-block; font-family:var(--display); font-weight:800; font-size:1.05rem; padding:6px 16px; border:2.5px solid currentColor; border-radius:5px; transform:rotate(-5deg); }
+.stamp.p { color:#0A6444; background:#E4F5EE; } .stamp.u { color:#7D5200; background:#FBF1D9; } .stamp.m { color:#A31B39; background:#FBE6EB; }
+
+/* type */
+.type { display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
+.type > div { padding:0 28px 0 0; }
+.type > div + div { padding-left:28px; border-left:1.5px solid var(--line); }
+.type .specimen { font-size:4.2rem; line-height:1; margin-bottom:14px; }
+.f-display { font-family:var(--display); font-weight:800; letter-spacing:-0.035em; }
+.f-body { font-family:var(--body); }
+.f-mono { font-family:var(--mono); font-size:3rem !important; }
+
+/* supporting graphics */
+.gfx { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:28px; }
+.gfx-art { border:1.5px solid var(--ink); border-radius:8px; height:220px; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:14px; }
+.gfx-item p { font-size:1rem; color:#26304D; }
+/* don'ts */
+.donts { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+.dont { border:1.5px solid var(--ink); border-radius:8px; background:var(--paper); padding:0 0 14px; overflow:hidden; }
+.dont .stage { height:120px; display:flex; align-items:center; justify-content:center; background:var(--paper); border-bottom:1px solid var(--line); overflow:hidden; }
+.dont img { height:40px; }
+.dont p { margin:12px 14px 0; font-size:.95rem; line-height:1.4; }
+.dont .x { font-family:var(--display); font-weight:800; color:#A31B39; }
+
+/* voice */
+.voice { display:grid; grid-template-columns:1fr 1fr; gap:0; border:1.5px solid #33426E; border-radius:8px; overflow:hidden; }
+.voice > div { padding:28px; }
+.voice > div + div { border-left:1.5px solid #33426E; }
+.voice h3 { margin-bottom:14px; }
+.voice ul { margin:0; padding:0; list-style:none; display:grid; gap:10px; font-size:1.02rem; }
+.voice li { color:#E3E8FF; }
+.voice .no li { color:#B5C0E0; text-decoration:line-through; text-decoration-color:#FF6B88; }
+
+/* downloads */
+.files { display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-top:1.5px solid var(--ink); }
+.files a { display:block; padding:14px 14px 14px 0; border-bottom:1px solid var(--line); font-family:var(--mono); font-size:.85rem; text-decoration:none; }
+.files a:hover { color:var(--blue); }
+footer { padding:48px 0 72px; border-top:1.5px solid var(--ink); font-family:var(--display); color:var(--slate); }
+
+@media (max-width:900px) {
+  .gfx { grid-template-columns:1fr; }
+  .two, .type, .voice { grid-template-columns:1fr; }
+  .type > div, .type > div + div { padding:0 0 28px; border-left:0; }
+  .swatches { grid-template-columns:repeat(2,1fr); }
+  .donts, .files { grid-template-columns:repeat(2,1fr); }
+  .voice > div + div { border-left:0; border-top:1.5px solid #33426E; }
+}
+@media (max-width:560px) { .tiles, .donts, .files { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Apodix"></div></header>
+
+<div class="wrap intro">
+  <h1>Brand guidelines</h1>
+  <p>How to use the Apodix name, mark, colors and voice. Short on purpose: if a rule isn't here, ask whether it helps someone trust a verdict faster.</p>
+</div>
+
+<!-- CONCEPT -->
+<section aria-labelledby="concept">
+  <div class="wrap two">
+    <div class="concept-art"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20233.7%20132%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(87.6%200)%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(4%20118.5)%20scale(0.06666666666666667)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Apodix stacked logo"></div>
+    <div>
+      <h2 id="concept">The idea: an ending you can trust</h2>
+      <p>Apodix is Greek for proof. The mark is built from the oldest construction most people know, and finished the way a proof is finished.</p>
+      <div class="parts">
+        <div class="part">
+          <div class="sw"><svg width="38" height="38" viewBox="-4 -4 60 60"><path d="M0 45A52 52 0 0 0 52 45A52 52 0 0 0 26 0A52 52 0 0 0 0 45Z" fill="none" stroke="#101A33" stroke-width="7" stroke-linejoin="round"/></svg></div>
+          <p><b>The shape</b> is a Reuleaux triangle: Euclid’s first construction, where each side is an arc drawn from the opposite corner. It also reads as a seal, the kind you stamp on checked work.</p>
+        </div>
+        <div class="part">
+          <div class="sw"><svg width="22" height="22"><rect width="22" height="22" fill="#2447F5"/></svg></div>
+          <p><b>The square</b> is ∎, the symbol mathematicians put at the end of a proof. It means: shown, finished.</p>
+        </div>
+        <div class="part">
+          <div class="sw"><svg width="24" height="34" viewBox="0 0 24 34"><rect x="1" y="0" width="12" height="12" fill="#2447F5"/><rect x="1" y="16" width="12" height="18" fill="#101A33"/></svg></div>
+          <p><b>The i</b> carries the same square as its dot, so the wordmark ends the way a proof does.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO -->
+<section aria-labelledby="logo">
+  <div class="wrap">
+    <h2 id="logo">Logo</h2>
+    <p class="muted">Use the horizontal logo by default. Use the stacked logo when the space is square, and the mark alone only when the name is already visible nearby.</p>
+    <div class="tiles" style="margin-top:28px">
+      <div class="tile light"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="" height="72"><span class="cap">logo-horizontal.svg</span></div>
+      <div class="tile dark"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%237F93FF%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23FFFFFF%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%237F93FF%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="" height="72"><span class="cap">logo-horizontal-white.svg</span></div>
+      <div class="tile tint"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20233.7%20132%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(87.6%200)%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(4%20118.5)%20scale(0.06666666666666667)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="" height="130"><span class="cap">logo-stacked.svg</span></div>
+      <div class="tile blue"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%237F93FF%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23FFFFFF%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%237F93FF%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="" height="72"><span class="cap">white on proof blue</span></div>
+      <div class="tile light"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%23101A33%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%23101A33%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="" height="72"><span class="cap">logo-horizontal-mono.svg, for one-color print</span></div>
+      <div class="tile dark"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20fill%3D%22%23101A33%22%2F%3E%3Cg%20transform%3D%22translate(80.5%2080.5)%20scale(6)%20translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%237F93FF%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="" height="150"><span class="cap">avatar.svg and favicon.svg</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLEAR SPACE -->
+<section aria-labelledby="space">
+  <div class="wrap two">
+    <div>
+      <h2 id="space">Clear space and size</h2>
+      <p>Keep a margin around the logo equal to the height of the ∎ in the mark (about one quarter of the mark's height). No text, edges or images inside it.</p>
+      <p class="muted">The horizontal logo should never be smaller than 24px tall on screen. Below that, use the mark alone. Below 16px, use the favicon.</p>
+    </div>
+    <div>
+      <div class="clear"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Horizontal logo with clear space"></div>
+      <div class="sizes">
+        <figure><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" height="48" alt=""><figcaption>48px</figcaption></figure>
+        <figure><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" height="32" alt=""><figcaption>32px</figcaption></figure>
+        <figure><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" height="24" alt=""><figcaption>24px, minimum</figcaption></figure>
+        <figure><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2058.5%2058.5%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" height="20" alt=""><figcaption>mark, 20px</figcaption></figure>
+        <figure><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%23101A33%22%2F%3E%3Cg%20transform%3D%22translate(8.6%208.6)%20scale(.8)%20translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%237F93FF%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" height="16" alt=""><figcaption>favicon, 16px</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOR -->
+<section aria-labelledby="color">
+  <div class="wrap">
+    <h2 id="color">Color</h2>
+    <p class="muted">Ink and chalk do the work. Blue appears once per view, on the thing to act on. The three verdict colors mean exactly one thing each and are never decorative.</p>
+    <div class="swatches" style="margin-top:28px">
+      <div class="sw-card"><div class="chip" style="background:#101A33"></div><div class="meta"><strong>Ink</strong><span>#101A33</span><em>Text, logo, dark surfaces.</em></div></div>
+      <div class="sw-card"><div class="chip" style="background:#2447F5"></div><div class="meta"><strong>Proof blue</strong><span>#2447F5</span><em>The ∎, primary action, links.</em></div></div>
+      <div class="sw-card"><div class="chip" style="background:#7F93FF"></div><div class="meta"><strong>Light blue</strong><span>#7F93FF</span><em>The ∎ on dark backgrounds only.</em></div></div>
+      <div class="sw-card"><div class="chip" style="background:#F3F5F8"></div><div class="meta"><strong>Chalk</strong><span>#F3F5F8</span><em>Page background.</em></div></div>
+      <div class="sw-card"><div class="chip" style="background:#fff"></div><div class="meta"><strong>Paper</strong><span>#FFFFFF</span><em>Cards, reports, tables.</em></div></div>
+    </div>
+    <div class="verdicts">
+      <span class="stamp p">Proven</span><span class="stamp u">Unproven</span><span class="stamp m">Missing</span>
+    </div>
+    <p class="muted" style="margin-top:18px;font-size:.95rem">Verdict text colors: #0A6444 on #E4F5EE, #7D5200 on #FBF1D9, #A31B39 on #FBE6EB. All pass WCAG AA.</p>
+  </div>
+</section>
+
+<!-- TYPE -->
+<section aria-labelledby="type">
+  <div class="wrap">
+    <h2 id="type">Typography</h2>
+    <p class="muted">Three voices, each with one job. All three are free and open source.</p>
+    <div class="type" style="margin-top:28px">
+      <div>
+        <div class="specimen f-display">Aa</div>
+        <h3>Bricolage Grotesque</h3>
+        <p class="muted" style="font-size:1rem">ExtraBold, tight tracking. Logo, headlines, buttons, stamps.</p>
+      </div>
+      <div>
+        <div class="specimen f-body">Aa</div>
+        <h3>Source Serif 4</h3>
+        <p class="muted" style="font-size:1rem">Regular. Paragraphs and explanations. It reads like a ledger, not a brochure.</p>
+      </div>
+      <div>
+        <div class="specimen f-mono">pytest</div>
+        <h3>JetBrains Mono</h3>
+        <p class="muted" style="font-size:1rem">Commands, test names and anything the user may copy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORTING GRAPHICS -->
+<section aria-labelledby="graphics">
+  <div class="wrap">
+    <h2 id="graphics">Supporting graphics</h2>
+    <p class="muted">Three devices carry the brand beyond the logo. Use them sparingly, one per layout.</p>
+    <div class="gfx">
+      <div class="gfx-item">
+        <div class="gfx-art" style="background:#fff"><svg viewBox="0 0 500 600" width="190" fill="none" stroke="#C9D0E0" stroke-width="2"><circle cx="150" cy="300" r="200"/><circle cx="350" cy="300" r="200"/><path d="M150 300H350L250 126.8Z" stroke="#9FB0E8" stroke-width="3"/><rect x="236" y="288" width="28" height="28" fill="#2447F5" stroke="none"/></svg></div>
+        <h3>Construction lines</h3>
+        <p>Two circles and a triangle, drawn thin in pale blue. Backgrounds and covers only, never behind body text.</p>
+      </div>
+      <div class="gfx-item">
+        <div class="gfx-art" style="background:#F3F5F8"><span class="stamp p">Proven</span><span class="stamp m" style="margin-left:14px">Missing</span></div>
+        <h3>Verdict stamps</h3>
+        <p>Tilted 5 degrees, two-pixel border, sentence case. The only things in the brand allowed to rotate.</p>
+      </div>
+      <div class="gfx-item">
+        <div class="gfx-art" style="background:#101A33"><svg width="150" height="150" viewBox="0 0 150 150"><rect x="30" y="30" width="90" height="90" fill="#2447F5"/></svg></div>
+        <h3>The ∎ on its own</h3>
+        <p>A plain square in proof blue marks the end of something: a section, a report, a page. One per view.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DON'TS -->
+<section aria-labelledby="donts">
+  <div class="wrap">
+    <h2 id="donts">Please don't</h2>
+    <div class="donts" style="margin-top:28px">
+      <div class="dont"><div class="stage"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="" style="transform:scaleX(1.5)"></div><p><span class="x">No.</span> Stretch or squash the logo.</p></div>
+      <div class="dont"><div class="stage"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="" style="transform:rotate(-8deg)"></div><p><span class="x">No.</span> Rotate it. Only verdict stamps tilt.</p></div>
+      <div class="dont"><div class="stage"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="" style="filter:hue-rotate(120deg) saturate(1.8)"></div><p><span class="x">No.</span> Recolor the ∎ or use verdict colors in the logo.</p></div>
+      <div class="dont"><div class="stage"><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20259.2%2062%22%20role%3D%22img%22%20aria-label%3D%22Apodix%22%3E%3Cg%20transform%3D%22translate(3.25%203.25)%22%3E%3Cpath%20d%3D%22M0%2045A52%2052%200%200%200%2052%2045A52%2052%200%200%200%2026%200A52%2052%200%200%200%200%2045Z%22%20fill%3D%22none%22%20stroke%3D%22%23101A33%22%20stroke-width%3D%226.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2223%22%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(72.5%2049)%20scale(0.05454545454545454)%22%3E%3Cpath%20d%3D%22M14%200L190%200L227-124L485-124L522%200L698%200L474-660L238-660ZM348-534L364-534L453-232L259-232ZM750%20169L911%20169L911%2019C911-29%20899-85%20888-140L907-140C939-39%20989%2014%201087%2014C1232%2014%201302-102%201302-260C1302-435%201217-542%201077-542C983-542%20919-488%20902-376L884-378L882-528L750-528ZM1028-113C955-113%20911-186%20911-249L911-271C911-328%20943-410%201024-410C1090-410%201134-352%201134-259C1134-171%201093-113%201028-113ZM1623%2014C1779%2014%201898-73%201898-264C1898-450%201784-542%201624-542C1463-542%201350-451%201350-265C1350-79%201462%2014%201623%2014ZM1628-103C1554-103%201512-158%201512-267C1512-369%201549-419%201619-419C1698-419%201736-359%201736-254C1736-153%201700-103%201628-103ZM2163%2014C2257%2014%202316-36%202339-156L2361-156L2363%200L2495%200L2495-720L2333-720L2333-545C2333-505%202345-443%202359-377L2334-377C2305-486%202255-540%202155-540C2014-540%201942-425%201942-265C1942-91%202031%2014%202163%2014ZM2221-116C2154-116%202112-175%202112-265C2112-354%202151-412%202217-412C2291-412%202333-338%202333-275L2333-254C2333-197%202302-116%202221-116ZM2597%200L2758%200L2758-528L2597-528ZM2810%200L2996%200L3083-196L3102-196L3191%200L3375%200L3200-264L3374-528L3189-528L3102-334L3083-334L2996-528L2811-528L2984-264Z%22%20fill%3D%22%23101A33%22%2F%3E%3Crect%20x%3D%222597.0%22%20y%3D%22-754%22%20width%3D%22161.0%22%20height%3D%22161.0%22%20fill%3D%22%232447F5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="" style="filter:drop-shadow(4px 4px 3px rgba(0,0,0,.45))"></div><p><span class="x">No.</span> Add shadows, outlines or gradients.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section class="dark" aria-labelledby="voice">
+  <div class="wrap">
+    <h2 id="voice">Voice</h2>
+    <p class="muted">Plain, exact, evidence first. Apodix never says "probably" and never says "great job".</p>
+    <div class="voice" style="margin-top:28px">
+      <div>
+        <h3>We say</h3>
+        <ul>
+          <li>“1 of 3 criteria proven.”</li>
+          <li>“The test still passes with the check removed.”</li>
+          <li>“No code or test mentions this rule.”</li>
+          <li>“Not done yet.”</li>
+        </ul>
+      </div>
+      <div class="no">
+        <h3 style="color:#fff">We don't say</h3>
+        <ul>
+          <li>“Looks mostly good!”</li>
+          <li>“Your tests may possibly be weak.”</li>
+          <li>“AI-powered next-gen verification.”</li>
+          <li>“Oops, something went wrong.”</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILES -->
+<section aria-labelledby="files">
+  <div class="wrap">
+    <h2 id="files">Files</h2>
+    <p class="muted">SVG for everything on screen, PNG where a platform needs a bitmap.</p>
+    <div class="files" style="margin-top:24px">
+      <a href="logo-horizontal.svg">logo-horizontal.svg</a>
+      <a href="logo-horizontal-white.svg">logo-horizontal-white.svg</a>
+      <a href="logo-horizontal-mono.svg">logo-horizontal-mono.svg</a>
+      <a href="logo-stacked.svg">logo-stacked.svg</a>
+      <a href="logo-stacked-white.svg">logo-stacked-white.svg</a>
+      <a href="mark.svg">mark.svg</a>
+      <a href="mark-white.svg">mark-white.svg</a>
+      <a href="mark-mono.svg">mark-mono.svg</a>
+      <a href="favicon.svg">favicon.svg</a>
+      <a href="avatar.svg">avatar.svg</a>
+      <a href="png/avatar-500.png">png/avatar-500.png</a>
+      <a href="png/social-preview.png">png/social-preview.png</a>
+      <a href="png/logo-horizontal-1600.png">png/logo-horizontal-1600.png</a>
+      <a href="png/favicon-180.png">png/favicon-180.png</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">Wordmark set in Bricolage Grotesque ExtraBold (SIL Open Font License), converted to outlines.</div></footer>
+</body>
+</html>
