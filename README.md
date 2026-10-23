@@ -67,6 +67,6 @@ Other formats: `--format md` (PR comment), `--format json`. Run the prototype's 
 ## Brand and landing page
 
 `brand/index.html` is the brand guidelines sheet. The mark is a Reuleaux triangle (Euclid I.1
-built from circles) holding the end-of-proof square. `site/` is plain HTML, CSS and JS with no build step (`site/index.html`, `css/style.css`, `js/main.js`, `assets/`). Preview it with `.venv\Scripts\python -m http.server 5173 --directory site` and open http://localhost:5173. It has
+built from circles) holding the end-of-proof square. `site/` is plain HTML, CSS and JS with no build step (`site/index.html`, `css/style.css`, `js/main.js`, `assets/`). The page is in English and Greek: English lives in the HTML, Greek in `js/i18n.js`, and the EN/ΕΛ toggle remembers the choice (`?lang=el` also works). Preview it with `.venv\Scripts\python -m http.server 5173 --directory site` and open http://localhost:5173. It has
 three scroll-driven moments (pinned "How it works" terminal, a construction that draws itself, a
 closing square). The terminal on the page shows the real output of `apodix verify demo\cart`.

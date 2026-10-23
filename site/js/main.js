@@ -1,13 +1,16 @@
 (function () {
+    /* button labels follow the page language (see i18n.js) */
+    function label(key, fallback) { return window.apodixI18n ? window.apodixI18n.t(key) : fallback; }
+
     /* copy button */
     var btn = document.getElementById('copy');
     if (btn) {
       btn.addEventListener('click', function () {
         try {
           navigator.clipboard.writeText('apodix verify .').then(function () {
-            btn.textContent = 'Copied';
-            setTimeout(function () { btn.textContent = 'Copy'; }, 1800);
-          });
+            btn.textContent = label('ui.copied', 'Copied');
+            setTimeout(function () { btn.textContent = label('ui.copy', 'Copy'); }, 1800);
+          }, function () { /* clipboard refused (page not focused): leave button as is */ });
         } catch (e) { /* clipboard unavailable: leave button as is */ }
       });
     }
@@ -18,9 +21,9 @@
         var target = document.getElementById(b.getAttribute('data-target'));
         try {
           navigator.clipboard.writeText(target.textContent).then(function () {
-            b.textContent = 'Copied';
-            setTimeout(function () { b.textContent = 'Copy'; }, 1800);
-          });
+            b.textContent = label('ui.copied', 'Copied');
+            setTimeout(function () { b.textContent = label('ui.copy', 'Copy'); }, 1800);
+          }, function () { /* clipboard refused (page not focused): leave button as is */ });
         } catch (e) { /* clipboard unavailable: leave button as is */ }
       });
     });

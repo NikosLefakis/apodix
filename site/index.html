@@ -17,7 +17,7 @@
 <meta name="description" content="Apodix checks every acceptance criterion your AI coding agent says it finished, and shows what is proven, unproven or missing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Cardo:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Cardo:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@500;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -26,10 +26,14 @@
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Apodix home"><img src="assets/logo-horizontal.svg" alt="Apodix" height="40"></a>
     <nav class="nav" aria-label="Main">
-      <a href="#how">How it works</a>
-      <a href="#try">Try it</a>
-      <a href="#fits">Where it fits</a>
-      <a href="#limits">Limits</a>
+      <a href="#how" data-i18n="nav.how">How it works</a>
+      <a href="#try" data-i18n="nav.try">Try it</a>
+      <a href="#fits" data-i18n="nav.fits">Where it fits</a>
+      <a href="#limits" data-i18n="nav.limits">Limits</a>
+      <div class="lang" role="group" data-i18n-attr="aria-label:lang.group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true" lang="en" title="English">EN</button>
+        <button type="button" data-lang="el" aria-pressed="false" lang="el" title="Ελληνικά">ΕΛ</button>
+      </div>
       <a class="btn" href="https://github.com/NikosLefakis/apodix">GitHub</a>
     </nav>
   </div>
@@ -56,22 +60,22 @@
 
   <div class="wrap hero-grid">
     <div>
-      <p class="concept-note">Working prototype. Not published yet.</p>
-      <h1>“Done” is not proof.</h1>
-      <p class="lead">Apodix checks the work your AI agent says it finished. For every acceptance criterion, it shows what is proven, what is unproven and what is missing.</p>
+      <p class="concept-note" data-i18n="hero.note">Working prototype. Not published yet.</p>
+      <h1 data-i18n="hero.h1">“Done” is not proof.</h1>
+      <p class="lead" data-i18n="hero.lead">Apodix checks the work your AI agent says it finished. For every acceptance criterion, it shows what is proven, what is unproven and what is missing.</p>
 
       <div class="install">
         <code><span>$</span> apodix verify .</code>
-        <button type="button" id="copy" aria-label="Copy command">Copy</button>
+        <button type="button" id="copy" aria-label="Copy command" data-i18n-attr="aria-label:hero.copyAria" data-i18n="ui.copy">Copy</button>
       </div>
       <div class="hero-actions">
-        <a class="btn" href="https://github.com/NikosLefakis/apodix">Star on GitHub</a>
-        <a class="btn ghost" href="#how">See how it works</a>
+        <a class="btn" href="https://github.com/NikosLefakis/apodix" data-i18n="ui.star">Star on GitHub</a>
+        <a class="btn ghost" href="#how" data-i18n="hero.see">See how it works</a>
       </div>
-      <p class="small-note">Run it in a Python project that uses pytest. Not on PyPI yet, so <a href="#try">install it from the repo</a>.</p>
+      <p class="small-note" data-i18n-html="hero.small">Run it in a Python project that uses pytest. Not on PyPI yet, so <a href="#try">install it from the repo</a>.</p>
     </div>
 
-    <div class="ledger" role="img" aria-label="Example report: one of three acceptance criteria is proven, one is unproven, one is missing.">
+    <div class="ledger" role="img" data-i18n-attr="aria-label:hero.ledgerAria" aria-label="Example report: one of three acceptance criteria is proven, one is unproven, one is missing.">
       <div class="ledger-head">
         <strong>Cart discount</strong>
         <span>issue #142</span>
@@ -119,26 +123,26 @@
     <rect data-from=".95" data-to="1" class="pop" x="236" y="114" width="28" height="28" fill="#2447F5" stroke="none"/>
   </svg>
   <div class="wrap">
-    <h2 class="section-title" id="gap-title">Green tests can still miss the point.</h2>
-    <p class="section-lead">An agent can pass every test it wrote and still skip half of what you asked. Tests that pass tell you nothing about requirements nobody tested.</p>
+    <h2 class="section-title" id="gap-title" data-i18n="gap.title">Green tests can still miss the point.</h2>
+    <p class="section-lead" data-i18n="gap.lead">An agent can pass every test it wrote and still skip half of what you asked. Tests that pass tell you nothing about requirements nobody tested.</p>
 
     <div class="gap-grid">
       <div class="gap-col">
-        <h3>What the agent says</h3>
-        <div class="bubble">All three requirements are implemented. <b>All 12 tests pass.</b></div>
+        <h3 data-i18n="gap.sayH">What the agent says</h3>
+        <div class="bubble" data-i18n-html="gap.bubble">All three requirements are implemented. <b>All 12 tests pass.</b></div>
         <div class="tests" aria-hidden="true">
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
         </div>
-        <div class="tests-label">12 tests, 12 green</div>
+        <div class="tests-label" data-i18n="gap.testsLabel">12 tests, 12 green</div>
       </div>
       <div class="gap-col">
-        <h3>What Apodix finds</h3>
-        <p class="found">1 of 3 <small>criteria proven</small></p>
-        <p class="found-sub">The 12 tests cover one requirement well. The other two are untested or untestable as written.</p>
+        <h3 data-i18n="gap.findH">What Apodix finds</h3>
+        <p class="found" data-i18n-html="gap.found">1 of 3 <small>criteria proven</small></p>
+        <p class="found-sub" data-i18n="gap.foundSub">The 12 tests cover one requirement well. The other two are untested or untestable as written.</p>
         <ul class="found-list">
-          <li><span class="dot p"></span>Discount over €100: proven</li>
-          <li><span class="dot m"></span>No-discount items: missing</li>
-          <li><span class="dot u"></span>Empty promo code: unproven</li>
+          <li data-i18n-html="gap.li1"><span class="dot p"></span>Discount over €100: proven</li>
+          <li data-i18n-html="gap.li2"><span class="dot m"></span>No-discount items: missing</li>
+          <li data-i18n-html="gap.li3"><span class="dot u"></span>Empty promo code: unproven</li>
         </ul>
       </div>
     </div>
@@ -148,26 +152,26 @@
 <!-- ================= VERDICTS ================= -->
 <section aria-labelledby="verdict-title">
   <div class="wrap">
-    <h2 class="section-title" id="verdict-title">Three verdicts. No “probably”.</h2>
-    <p class="section-lead">Every criterion ends in exactly one state, so a reviewer knows where to look.</p>
+    <h2 class="section-title" id="verdict-title" data-i18n="ver.title">Three verdicts. No “probably”.</h2>
+    <p class="section-lead" data-i18n="ver.lead">Every criterion ends in exactly one state, so a reviewer knows where to look.</p>
     <div class="verdicts">
       <div class="verdict-item">
         <span class="stamp proven">Proven</span>
-        <h3>A test guards it</h3>
-        <p>The test passes today, and it fails when Apodix breaks the matching code on purpose.</p>
-        <p class="ex">Change 10% to 5% and the test goes red.</p>
+        <h3 data-i18n="ver.a.h">A test guards it</h3>
+        <p data-i18n="ver.a.p">The test passes today, and it fails when Apodix breaks the matching code on purpose.</p>
+        <p class="ex" data-i18n="ver.a.ex">Change 10% to 5% and the test goes red.</p>
       </div>
       <div class="verdict-item">
         <span class="stamp unproven">Unproven</span>
-        <h3>A test exists, but guards nothing</h3>
-        <p>The code may be right, but nothing would notice if it were wrong.</p>
-        <p class="ex">Delete the check and the test still passes.</p>
+        <h3 data-i18n="ver.b.h">A test exists, but guards nothing</h3>
+        <p data-i18n="ver.b.p">The code may be right, but nothing would notice if it were wrong.</p>
+        <p class="ex" data-i18n="ver.b.ex">Delete the check and the test still passes.</p>
       </div>
       <div class="verdict-item">
         <span class="stamp missing">Missing</span>
-        <h3>Nothing covers it</h3>
-        <p>No code or test relates to this requirement. The agent forgot it, or never understood it.</p>
-        <p class="ex">The words “no discount” appear nowhere in the diff.</p>
+        <h3 data-i18n="ver.c.h">Nothing covers it</h3>
+        <p data-i18n="ver.c.p">No code or test relates to this requirement. The agent forgot it, or never understood it.</p>
+        <p class="ex" data-i18n="ver.c.ex">The words “no discount” appear nowhere in the diff.</p>
       </div>
     </div>
   </div>
@@ -179,20 +183,20 @@
     <div class="story-sticky">
       <div class="wrap story-grid">
         <div class="story-left">
-          <h2 class="section-title" id="how-title">How Apodix checks the work</h2>
-          <p class="section-lead">The model never grades itself: the verdict comes from running code.</p>
+          <h2 class="section-title" id="how-title" data-i18n="how.title">How Apodix checks the work</h2>
+          <p class="section-lead" data-i18n="how.lead">The model never grades itself: the verdict comes from running code.</p>
           <ol class="story-steps">
             <li class="s"><svg viewBox="0 0 76 76" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="8" width="48" height="60" rx="4"/><path d="M24 24h28M24 36h28M24 48h16" stroke="#7F93FF"/><path d="M20 22l2.5 2.5L27 20" stroke="#46D6A0"/></svg>
-              <div><h3>Read the criteria</h3><p>Reads acceptance criteria from a markdown file and keeps each one’s ID. GitHub issues are next.</p></div></li>
+              <div><h3 data-i18n="how.s1h">Read the criteria</h3><p data-i18n="how.s1p">Reads acceptance criteria from a markdown file and keeps each one’s ID. GitHub issues are next.</p></div></li>
             <li class="s"><svg viewBox="0 0 76 76" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="32" cy="32" r="18"/><path d="M45 45l17 17" stroke="#7F93FF" stroke-width="4"/><path d="M22 32h20M32 22v20" stroke="#7F93FF"/></svg>
-              <div><h3>Find the evidence</h3><p>Links each criterion to the tests marked to cover it, and records which code lines those tests ran.</p></div></li>
+              <div><h3 data-i18n="how.s2h">Find the evidence</h3><p data-i18n="how.s2p">Links each criterion to the tests marked to cover it, and records which code lines those tests ran.</p></div></li>
             <li class="s"><svg viewBox="0 0 76 76" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="14" width="56" height="48" rx="5"/><path d="M20 28h14M20 38h10M20 48h16" stroke="#7F93FF"/><path d="M46 14l-7 14 10 8-9 12 5 14" stroke="#FF6B88" stroke-width="3"/></svg>
-              <div><h3>Break it on purpose</h3><p>Changes the matching code in a scratch copy and reruns the tests. A real guard test turns red.</p></div></li>
+              <div><h3 data-i18n="how.s3h">Break it on purpose</h3><p data-i18n="how.s3p">Changes the matching code in a scratch copy and reruns the tests. A real guard test turns red.</p></div></li>
             <li class="s"><svg viewBox="0 0 76 76" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="22" width="56" height="34" rx="5" transform="rotate(-6 38 38)" stroke="#46D6A0"/><path d="M26 39l8 8 16-16" stroke="#46D6A0" stroke-width="3.5" transform="rotate(-6 38 38)"/></svg>
-              <div><h3>Stamp the verdict</h3><p>Returns Proven, Unproven or Missing for each criterion and sends the gaps back to the agent.</p></div></li>
+              <div><h3 data-i18n="how.s4h">Stamp the verdict</h3><p data-i18n="how.s4p">Returns Proven, Unproven or Missing for each criterion and sends the gaps back to the agent.</p></div></li>
           </ol>
         </div>
-        <div class="terminal" role="img" aria-label="Terminal output of the apodix verify command, building up step by step">
+        <div class="terminal" role="img" data-i18n-attr="aria-label:how.termAria" aria-label="Terminal output of the apodix verify command, building up step by step">
           <div class="term-bar"><i></i><i></i><i></i></div>
           <div class="term-body">
             <div class="ln cmd" data-at=".02">apodix verify demo/cart</div>
@@ -228,18 +232,18 @@
 <section class="try" id="try" aria-labelledby="try-title">
   <div class="wrap try-grid">
     <div>
-      <h2 class="section-title" id="try-title">Try the prototype</h2>
-      <p class="section-lead">Install it from the repo and run it on the demo cart. An agent claimed all three requirements were done. Apodix finds one.</p>
-      <p class="small-note">Needs Python 3.10 or newer. The README has the Windows commands. Run it on <code>demo/cart_fixed</code> afterwards to see 3 of 3 proven.</p>
+      <h2 class="section-title" id="try-title" data-i18n="try.title">Try the prototype</h2>
+      <p class="section-lead" data-i18n="try.lead">Install it from the repo and run it on the demo cart. An agent claimed all three requirements were done. Apodix finds one.</p>
+      <p class="small-note" data-i18n-html="try.small">Needs Python 3.10 or newer. The README has the Windows commands. Run it on <code>demo/cart_fixed</code> afterwards to see 3 of 3 proven.</p>
     </div>
     <div class="codepanel">
-      <div class="codepanel-bar"><span>macOS and Linux</span><button type="button" class="copy-btn" data-target="try-code">Copy</button></div>
+      <div class="codepanel-bar"><span data-i18n="try.os">macOS and Linux</span><button type="button" class="copy-btn" data-target="try-code" data-i18n="ui.copy">Copy</button></div>
 <pre id="try-code">git clone https://github.com/NikosLefakis/apodix
 cd apodix
 python3 -m venv .venv
 .venv/bin/pip install -e .
 .venv/bin/apodix verify demo/cart</pre>
-      <div class="codepanel-out" aria-label="Expected result">1 of 3 proven. Not done yet.</div>
+      <div class="codepanel-out" aria-label="Expected result" data-i18n-attr="aria-label:try.outAria">1 of 3 proven. Not done yet.</div>
     </div>
   </div>
 </section>
@@ -247,24 +251,24 @@ python3 -m venv .venv
 <!-- ================= WHERE IT FITS ================= -->
 <section class="fits" id="fits" aria-labelledby="fits-title">
   <div class="wrap">
-    <h2 class="section-title" id="fits-title">Works where you already work.</h2>
-    <p class="section-lead">Today only the command line exists. The other two are next, and will share the same engine and verdicts.</p>
+    <h2 class="section-title" id="fits-title" data-i18n="fits.title">Works where you already work.</h2>
+    <p class="section-lead" data-i18n="fits.lead">Today only the command line exists. The other two are next, and will share the same engine and verdicts.</p>
     <div class="fits-grid">
       <div class="fit">
         <h3>Claude Code</h3>
-        <p>Planned. Claude calls <code>verify_done</code> before it says it is finished, then fixes what is missing without you asking.</p>
+        <p data-i18n-html="fits.a.p">Planned. Claude calls <code>verify_done</code> before it says it is finished, then fixes what is missing without you asking.</p>
         <code class="block">claude mcp add apodix -- apodix mcp</code>
       </div>
       <div class="fit">
         <h3>GitHub Actions</h3>
-        <p>Planned. Every pull request gets a proof table as a comment. Reviewers read verdicts instead of scrolling a diff.</p>
+        <p data-i18n="fits.b.p">Planned. Every pull request gets a proof table as a comment. Reviewers read verdicts instead of scrolling a diff.</p>
         <code class="block">- uses: NikosLefakis/apodix@v0
   with:
     issue: ${{ github.event.number }}</code>
       </div>
       <div class="fit">
-        <h3>Command line</h3>
-        <p>Available now. Run it locally or in any CI. Output is text, Markdown or JSON, and the exit code is 1 until every criterion is proven.</p>
+        <h3 data-i18n="fits.c.h">Command line</h3>
+        <p data-i18n="fits.c.p">Available now. Run it locally or in any CI. Output is text, Markdown or JSON, and the exit code is 1 until every criterion is proven.</p>
         <code class="block">apodix verify demo/cart --format md</code>
       </div>
     </div>
@@ -275,14 +279,14 @@ python3 -m venv .venv
 <section id="limits" aria-labelledby="limits-title">
   <div class="wrap limits">
     <div>
-      <h2 class="section-title" id="limits-title">What it can’t prove yet.</h2>
-      <p class="section-lead" style="margin-bottom:0">A proof tool that overclaims is worse than none. Here is where the first version stops.</p>
+      <h2 class="section-title" id="limits-title" data-i18n="lim.title">What it can’t prove yet.</h2>
+      <p class="section-lead" style="margin-bottom:0" data-i18n="lim.lead">A proof tool that overclaims is worse than none. Here is where the first version stops.</p>
     </div>
     <ul>
-      <li><b>Languages</b><span>Python with pytest first. TypeScript is next.</span></li>
-      <li><b>Kinds of rules</b><span>Anything a unit test can check. Visual layout and timing are out of scope for now.</span></li>
-      <li><b>Outside services</b><span>Payments, email and other APIs need mocks. Apodix will say so when a rule depends on one.</span></li>
-      <li><b>Vague criteria</b><span>“Make it feel fast” cannot be proven. Apodix flags it and asks for something measurable.</span></li>
+      <li data-i18n-html="lim.l1"><b>Languages</b><span>Python with pytest first. TypeScript is next.</span></li>
+      <li data-i18n-html="lim.l2"><b>Kinds of rules</b><span>Anything a unit test can check. Visual layout and timing are out of scope for now.</span></li>
+      <li data-i18n-html="lim.l3"><b>Outside services</b><span>Payments, email and other APIs need mocks. Apodix will say so when a rule depends on one.</span></li>
+      <li data-i18n-html="lim.l4"><b>Vague criteria</b><span>“Make it feel fast” cannot be proven. Apodix flags it and asks for something measurable.</span></li>
     </ul>
   </div>
 </section>
@@ -291,12 +295,12 @@ python3 -m venv .venv
 <section class="cta" aria-labelledby="cta-title">
   <div class="wrap">
     <div>
-      <h2 id="cta-title">Help build the first proof tool for AI agents.</h2>
-      <p>Apodix is open source from day one. Try the first release, file the cases it gets wrong, or pick up a good first issue.</p>
+      <h2 id="cta-title" data-i18n="cta.title">Help build the first proof tool for AI agents.</h2>
+      <p data-i18n="cta.p">Apodix is open source from day one. Try the first release, file the cases it gets wrong, or pick up a good first issue.</p>
     </div>
     <div class="cta-actions">
-      <a class="btn" href="https://github.com/NikosLefakis/apodix">Star on GitHub</a>
-      <a class="btn ghost" href="https://github.com/NikosLefakis/apodix/issues">Good first issues</a>
+      <a class="btn" href="https://github.com/NikosLefakis/apodix" data-i18n="ui.star">Star on GitHub</a>
+      <a class="btn ghost" href="https://github.com/NikosLefakis/apodix/issues" data-i18n="cta.issues">Good first issues</a>
     </div>
   </div>
 </section>
@@ -307,19 +311,20 @@ python3 -m venv .venv
   <div class="wrap footer-grid">
     <div>
       <div class="qed" id="qed" aria-hidden="true"></div>
-    <p class="etymology">
+    <p class="etymology" data-i18n-html="foot.ety">
       <span class="gr" lang="grc">ἀπόδειξις</span>
       <i>apódeixis</i>, Greek for “a showing-forth”: proof. Euclid closed his proofs with <span lang="grc">ὅπερ ἔδει δεῖξαι</span>, “which was to be shown”, and the square ∎ still marks the end of a proof.
     </p>
     </div>
     <div class="footer-meta">
       <a class="brand" href="#top" aria-label="Apodix home"><img src="assets/logo-horizontal.svg" alt="Apodix" height="36"></a>
-      <div>Designed and built by <a class="credit" href="https://nikoslefakis.vercel.app" rel="author">Nikos Lefakis</a></div>
-      <div>MIT license. Made in the open.</div>
+      <div data-i18n-html="foot.credit">Designed and built by <a class="credit" href="https://nikoslefakis.vercel.app" rel="author">Nikos Lefakis</a></div>
+      <div data-i18n="foot.license">MIT license. Made in the open.</div>
     </div>
   </div>
 </footer>
 
+<script src="js/i18n.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

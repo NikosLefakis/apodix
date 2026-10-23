@@ -17,6 +17,9 @@
   --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
   --greek: "Cardo", "Gentium Plus", "Times New Roman", serif;
 }
+/* Bricolage Grotesque has no Greek glyphs: headings use Manrope when the page is Greek */
+html:lang(el) { --display: "Manrope", "Segoe UI", system-ui, sans-serif; }
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
@@ -275,3 +278,11 @@ section { padding: 88px 0; }
 .codepanel pre { margin: 0; padding: 20px 22px; font-family: var(--mono); font-size: .86rem; line-height: 1.8; color: #fff; overflow-x: auto; }
 .codepanel-out { padding: 14px 22px; border-top: 1px solid #33426E; font-family: var(--mono); font-size: .85rem; color: #FF6B88; }
 @media (max-width: 980px) { .try-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* language toggle */
+.lang { display: inline-flex; border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; }
+.lang button { font-family: var(--display); font-weight: 700; font-size: .85rem; letter-spacing: .02em; padding: 6px 11px; background: transparent; color: var(--ink); border: 0; cursor: pointer; }
+.lang button + button { border-left: 1.5px solid var(--ink); }
+.lang button:hover { background: var(--line); }
+.lang button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+@media (max-width: 560px) { .nav .btn { display: none; } .nav { gap: 12px; } }
