@@ -1,0 +1,35 @@
+name: Bug report
+description: Apodix gave a wrong, surprising or confusing result
+labels: ["bug"]
+body:
+  - type: textarea
+    id: command
+    attributes:
+      label: What did you run?
+      description: The exact command, for example `apodix verify .`
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: What happened?
+      description: Paste the output. Say which verdict surprised you and why.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: project
+    attributes:
+      label: Smallest project that shows it
+      description: A link to a repo or a few lines of code and tests. A surviving broken version is not always a bug, so tell us what you expected instead.
+  - type: input
+    id: env
+    attributes:
+      label: Versions
+      description: Output of `apodix --version`, plus your Python version and operating system.

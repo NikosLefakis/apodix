@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest something Apodix should do
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One rule decides what fits: the verdict must come from running code, not from a model's opinion.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the situation, not the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like Apodix to do?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What do you do today instead?

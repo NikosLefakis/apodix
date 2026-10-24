@@ -1,5 +1,9 @@
 # Apodix
 
+[![CI](https://github.com/NikosLefakis/apodix/actions/workflows/ci.yml/badge.svg)](https://github.com/NikosLefakis/apodix/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-2447F5.svg)](LICENSE)
+[![Landing page](https://img.shields.io/badge/site-nikoslefakis.github.io%2Fapodix-101A33.svg)](https://nikoslefakis.github.io/apodix/)
+
 > "Done" is not proof.
 
 Apodix checks the work your AI coding agent says it finished. For every acceptance
@@ -8,6 +12,8 @@ criterion it reports one of three verdicts:
 - **Proven**: the linked tests pass, and they fail when Apodix breaks the matching code on purpose.
 - **Unproven**: tests exist, but they still pass when the code is broken.
 - **Missing**: no test is linked to the requirement.
+
+![Apodix checking the demo cart: 1 of 3 criteria proven, so the work is not done yet](docs/demo.svg)
 
 **Status: working prototype.** Python + pytest only. Not published to PyPI yet.
 
@@ -56,7 +62,13 @@ Other formats: `--format md` (PR comment), `--format json`. Run the prototype's 
 - `demo/cart/` a cart discount where the agent's "done" claim does not hold up
 - `demo/cart_fixed/` the same project after the gaps were fixed
 - `tests/` tests for Apodix itself
+- `.github/` CI (Linux, macOS, Windows, Python 3.10 and 3.12), issue and PR templates, landing page deploy
+- `docs/demo.svg` the animated demo above, rebuilt from the real output with `python tools/make_demo_svg.py`
 - `site/index.html` landing page, `brand/` logo and brand guidelines, `docs/RESEARCH.md` market notes
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). The one rule: the verdict must come from running code, never from a model's opinion.
 
 ## Name
 
