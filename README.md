@@ -74,9 +74,10 @@ at the end of the criterion and only those are changed:
 claude mcp add apodix -- apodix mcp
 ```
 
-This gives the agent two tools: `verify_done` (runs the check and answers `DONE` or `NOT DONE YET` with the
-report) and `suggest_tests`. It speaks MCP over stdio with no extra package. It is tested over the protocol with a
-real server process, not yet in daily use inside Claude Code. A check can take a minute or more; lower
+This gives the agent two tools: `verify_done` (runs the check and answers `DONE`, `DONE, WITH WEAK SPOTS` or
+`NOT DONE YET`, with the report) and `suggest_tests`. `DONE, WITH WEAK SPOTS` means every criterion cleared the bar
+but one only just did (under 80% of the weight), and lists what the tests did not notice. `min_score` raises the bar. It speaks MCP over stdio with no extra package. It has been tried once inside Claude Code Desktop (see `docs/RESEARCH.md`) and is tested over the protocol with a
+real server process. It is not in daily use yet. A check can take a minute or more; lower
 `max_mutants` (default 60 for the agent) if your client times out.
 
 ## Known limits

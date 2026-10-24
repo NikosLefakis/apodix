@@ -104,3 +104,23 @@ Reading it honestly:
   right candidates for intcomma. On semver the right test was not always first (bump, build metadata). It is a starting
   point to review, not an authority.
 - Two projects, criteria and marks chosen by me: this is evidence the approach behaves, not a calibration.
+
+### First run inside Claude Code Desktop (2026-10-24)
+
+Run by the author, not by me: a session in a copy of the cart demo with the MCP server declared in `.mcp.json`. I checked
+the result afterwards by running `apodix verify` on the same folder.
+
+- The agent called `verify_done`, wrote the missing tests (two for R2, two for R3, one more for R1), and reached
+  **3 of 3 proven with 16 tests**. The flow works with a real agent.
+- It stopped as soon as the bar was met: R2 passed at **6 of 10, exactly 60%**, with the 100-euro boundary
+  (`100 became 101`, `>` became `>=`) still unnoticed by its tests. A score that becomes the goal gets met and no more.
+  The agent said so itself afterwards and listed the gaps, which is the behavior we want, but it should not take
+  a follow-up question. Change: `verify_done` now answers `DONE, WITH WEAK SPOTS` when a criterion is proven by under
+  80% of the weight and lists what went unnoticed; its description says "proven is a floor, not a goal".
+- Later in the session the agent reported that the server had been removed from its configuration. The cause is
+  unknown. One possibility I fixed: the server answered one request at a time, so during a check of tens of seconds it
+  could not answer a `ping`, and a client may treat that as a dead server. Tool calls now run on worker threads and
+  pings are answered at once (`test_a_ping_is_answered_while_a_long_check_is_still_running`). Whether that was the
+  cause is not confirmed.
+- The agent's shell had no `python` on PATH, so it could not run `pytest` directly. That is an environment detail, but it
+  shows why the MCP tool matters: it runs with the interpreter Apodix was installed in.

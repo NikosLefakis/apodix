@@ -16,6 +16,8 @@ import contextlib
 import io
 import json
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from . import __version__
@@ -30,7 +32,8 @@ TOOLS = [
             "Check whether the work is really done. Reads the acceptance criteria (criteria.md), runs the tests "
             "linked to each one with @pytest.mark.covers(\"R1\"), breaks the code on purpose, and reports each "
             "criterion as proven, unproven or missing. Call it before telling the user the task is finished. "
-            "If the result is not 'Done.', fix what it lists and call it again. Python and pytest only."
+            "If the result is not 'Done.', fix what it lists and call it again. 'Proven' is a floor, not a goal: when the "
+            "answer says DONE but lists weak spots, close them with tests before you finish. Python and pytest only."
         ),
         "inputSchema": {
             "type": "object",
@@ -40,6 +43,10 @@ TOOLS = [
                 "max_mutants": {
                     "type": "integer",
                     "description": "Most code changes to try per criterion, nearest code first. Lower is faster (default 60).",
+                },
+                "min_score": {
+                    "type": "number",
+                    "description": "Share of the weight the tests must catch for a criterion to count as proven (default 0.6). Use 0.8 to be stricter.",
                 },
             },
         },
@@ -67,9 +74,26 @@ def _verify_done(args: dict) -> str:
 
     project = Path(args.get("project") or ".")
     criteria = Path(args["criteria"]) if args.get("criteria") else None
-    report = verify(project, criteria, max_mutants=int(args.get("max_mutants") or 60))
-    headline = "DONE" if report.done else "NOT DONE YET"
-    return f"{headline}\n\n{render_text(report, color=False)}"
+    report = verify(project, criteria, float(args.get("min_score") or 0.6), max_mutants=int(args.get("max_mutants") or 60))
+    return f"{_headline(report)}\n\n{render_text(report, color=False)}"
+
+
+WEAK = 0.8
+
+
+def _headline(report) -> str:
+    """DONE only says every criterion cleared the bar. Say plainly when one cleared it narrowly."""
+    if not report.done:
+        return "NOT DONE YET"
+    weak = [r for r in report.results if r.score < WEAK]
+    if not weak:
+        return "DONE"
+    spots = []
+    for r in weak:
+        seen = "; ".join(f"{o.file}:{o.line} {o.description}" for o in r.survived[:2])
+        spots.append(f"{r.id} is proven by only {r.score:.0%} of the weight (not noticed: {seen})")
+    return ("DONE, WITH WEAK SPOTS\n" + "\n".join(spots) +
+            "\nThe bar was met, but these changes went unnoticed. Add tests for them before you call the work finished.")
 
 
 def _suggest_tests(args: dict) -> str:
@@ -134,20 +158,35 @@ def handle(message: dict) -> dict | None:
 
 
 def serve(stdin=None, stdout=None) -> int:
+    """Read requests until stdin closes. A tool call can take a minute, so tool calls run on worker threads and
+    everything else (ping, tools/list) is answered at once: a client that cannot get an answer to a ping
+    assumes the server is dead and drops it."""
     reader = stdin or io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
     writer = stdout or io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", newline="\n", write_through=True)
-    for line in reader:
-        line = line.strip()
-        if not line:
-            continue
-        try:
-            message = json.loads(line)
-        except json.JSONDecodeError:
-            writer.write(json.dumps({"jsonrpc": "2.0", "id": None, "error": {"code": -32700, "message": "parse error"}}) + "\n")
+    lock = threading.Lock()
+
+    def send(payload: dict) -> None:
+        with lock:
+            writer.write(json.dumps(payload, ensure_ascii=False) + "\n")
             writer.flush()
-            continue
+
+    def answer(message: dict) -> None:
         response = handle(message)
         if response is not None:
-            writer.write(json.dumps(response, ensure_ascii=False) + "\n")
-            writer.flush()
+            send(response)
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        for line in reader:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                message = json.loads(line)
+            except json.JSONDecodeError:
+                send({"jsonrpc": "2.0", "id": None, "error": {"code": -32700, "message": "parse error"}})
+                continue
+            if isinstance(message, dict) and message.get("method") == "tools/call":
+                pool.submit(answer, message)
+            else:
+                answer(message)
     return 0

@@ -72,3 +72,49 @@ def test_end_to_end_over_stdio_on_the_broken_demo():
     text = replies[2]["result"]["content"][0]["text"]
     assert text.startswith("NOT DONE YET")
     assert "1 of 3 proven" in text
+
+
+def test_a_ping_is_answered_while_a_long_check_is_still_running():
+    """Clients ping to see the server is alive. During a check that takes a minute it must still answer."""
+    import threading
+    import time
+
+    proc = subprocess.Popen(
+        [sys.executable, "-m", "apodix", "mcp"], cwd=ROOT, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL, text=True, encoding="utf-8",
+    )
+    arrived: list[tuple[float, int]] = []
+
+    def read():
+        for line in proc.stdout:
+            if line.strip():
+                arrived.append((time.time(), json.loads(line)["id"]))
+
+    reader = threading.Thread(target=read, daemon=True)
+    reader.start()
+    send = lambda m: (proc.stdin.write(json.dumps(m) + "\n"), proc.stdin.flush())
+
+    send({"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": LATEST}})
+    send({"jsonrpc": "2.0", "id": 2, "method": "tools/call",
+          "params": {"name": "verify_done", "arguments": {"project": "demo/cart", "max_mutants": 20}}})
+    time.sleep(2)                                           # the check is running now
+    send({"jsonrpc": "2.0", "id": 3, "method": "ping"})
+    proc.stdin.close()
+    proc.wait(timeout=180)
+    reader.join(timeout=5)
+
+    order = [i for _, i in arrived]
+    assert order.index(3) < order.index(2), order          # the ping came back before the check finished
+
+
+def test_done_with_a_barely_proven_criterion_says_so():
+    from apodix.mcp import _headline
+    from apodix.verify import CriterionResult, MutantOutcome, Report
+
+    weak = CriterionResult("R2", "x", "proven", "", score=0.6,
+                           survived=[MutantOutcome("cart.py", 5, "100 became 101", False)])
+    strong = CriterionResult("R1", "y", "proven", "", score=0.95)
+    assert _headline(Report("p", "c.md", [strong], 1, 1)) == "DONE"
+    text = _headline(Report("p", "c.md", [strong, weak], 2, 2))
+    assert text.startswith("DONE, WITH WEAK SPOTS") and "R2" in text and "cart.py:5" in text
+    assert _headline(Report("p", "c.md", [strong, weak], 2, 1)) == "NOT DONE YET"   # a failing test is never DONE
