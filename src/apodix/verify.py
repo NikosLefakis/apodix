@@ -25,6 +25,7 @@ class MutantOutcome:
     line: int
     description: str
     killed: bool
+    invalid: bool = False  # the tests never imported the changed file, so the change says nothing
 
 
 @dataclass
@@ -36,6 +37,7 @@ class CriterionResult:
     tests: list[str] = field(default_factory=list)
     killed: int = 0
     total: int = 0
+    invalid: int = 0
     caught: list[MutantOutcome] = field(default_factory=list)
     survived: list[MutantOutcome] = field(default_factory=list)
 
@@ -89,30 +91,39 @@ def _judge(project: Path, criterion: Criterion, tests, sources, min_score: float
 
     def run(job):
         source, rel, mutant = job
-        passed = run_on_mutant(project, source, mutant.source, nodeids).passed
-        return MutantOutcome(rel, mutant.line, mutant.description, killed=not passed)
+        run_result = run_on_mutant(project, source, mutant.source, nodeids)
+        return MutantOutcome(rel, mutant.line, mutant.description,
+                             killed=not run_result.passed and run_result.loaded, invalid=not run_result.loaded)
 
-    outcomes: list[MutantOutcome] = []
+    all_outcomes: list[MutantOutcome] = []
     with ThreadPoolExecutor(max_workers=_WORKERS) as pool:  # each job is a pytest subprocess
         for outcome in pool.map(run, jobs):
-            log(f"  {criterion.id}: {outcome.file} line {outcome.line}, {outcome.description}: "
-                f"{'caught' if outcome.killed else 'survived'}")
-            outcomes.append(outcome)
+            state = "not loaded" if outcome.invalid else "caught" if outcome.killed else "survived"
+            log(f"  {criterion.id}: {outcome.file} line {outcome.line}, {outcome.description}: {state}")
+            all_outcomes.append(outcome)
 
+    # A change the tests never imported says nothing either way, so it is not counted
+    outcomes = [o for o in all_outcomes if not o.invalid]
+    result.invalid = len(all_outcomes) - len(outcomes)
     result.total = len(outcomes)
     result.killed = sum(o.killed for o in outcomes)
     result.caught = [o for o in outcomes if o.killed]
     result.survived = [o for o in outcomes if not o.killed]
+    skipped = f" {result.invalid} changes could not be tested." if result.invalid else ""
 
-    if result.total == 0:
+    if result.total == 0 and result.invalid:
+        result.verdict = UNPROVEN
+        result.reason = ("Apodix could not make the tests import its changed copy of the code, so it cannot judge this. "
+                         "The project probably imports its code from somewhere else, such as an install outside the project folder.")
+    elif result.total == 0:
         result.verdict = UNPROVEN
         result.reason = "The tests run no project code that Apodix could break."
     elif result.killed >= 1 and result.killed / result.total >= min_score:
         result.verdict = PROVEN
-        result.reason = f"Broke the code {result.total} ways, the tests caught {result.killed}."
+        result.reason = f"Broke the code {result.total} ways, the tests caught {result.killed}.{skipped}"
     else:
         result.verdict = UNPROVEN
-        result.reason = f"Broke the code {result.total} ways, the tests caught only {result.killed}."
+        result.reason = f"Broke the code {result.total} ways, the tests caught only {result.killed}.{skipped}"
     return result
 
 
