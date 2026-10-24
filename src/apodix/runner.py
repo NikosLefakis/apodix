@@ -56,7 +56,9 @@ def run_pytest(
             encoding="utf-8", errors="replace", timeout=timeout,
         )
     except subprocess.TimeoutExpired:
-        return RunResult(False, "timed out", True)
+        return RunResult(False, f"pytest did not finish within {timeout:.0f} seconds", True)
+    except OSError as exc:
+        return RunResult(False, f"could not start {sys.executable}: {exc}")
     output = done.stdout + done.stderr
     return RunResult(done.returncode == 0, output, loaded=NOT_LOADED not in output)
 

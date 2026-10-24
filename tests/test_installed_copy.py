@@ -55,3 +55,24 @@ def test_a_change_the_tests_never_import_is_not_counted_as_a_survivor(tmp_path):
     assert r1.survived == []        # nothing is blamed on the tests
     assert r1.invalid >= 1
     assert "could not" in r1.reason
+
+
+# ---- when the tests cannot be run, say so instead of judging them ---------------------------------
+
+def test_a_project_with_no_runnable_tests_is_an_error_not_three_unproven(tmp_path):
+    import pytest
+
+    (tmp_path / "criteria.md").write_text("- R1: something\n")
+    (tmp_path / "lib.py").write_text("def f():\n    return 1\n")
+    with pytest.raises(ValueError, match="ran no tests") as error:
+        verify(tmp_path)
+    assert "Python used:" in str(error.value)               # tells you which interpreter was tried
+
+
+def test_an_interpreter_that_cannot_start_is_reported_with_its_path(tmp_path, monkeypatch):
+    import pytest
+
+    _project(tmp_path)
+    monkeypatch.setattr("apodix.runner.sys.executable", str(tmp_path / "no-such-python.exe"))
+    with pytest.raises(ValueError, match="could not start"):
+        verify(tmp_path)

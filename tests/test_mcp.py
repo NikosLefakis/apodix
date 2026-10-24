@@ -74,21 +74,29 @@ def test_end_to_end_over_stdio_on_the_broken_demo():
     assert "1 of 3 proven" in text
 
 
-def test_a_ping_is_answered_while_a_long_check_is_still_running():
-    """Clients ping to see the server is alive. During a check that takes a minute it must still answer."""
+def test_a_ping_is_answered_while_a_long_check_is_still_running(tmp_path):
+    """Clients ping to see the server is alive. During a check that takes a while it must still answer.
+
+    The project's test sleeps, so the check lasts several seconds on any machine, however fast."""
     import threading
     import time
+
+    (tmp_path / "lib.py").write_text("def f(x):\n    return x + 1\n")
+    (tmp_path / "test_lib.py").write_text(
+        "import time\nimport pytest\nfrom lib import f\n\n"
+        "@pytest.mark.covers('R1')\ndef test_f():\n    time.sleep(2)\n    assert f(1) == 2\n")
+    (tmp_path / "criteria.md").write_text("- R1: f adds one\n")
 
     proc = subprocess.Popen(
         [sys.executable, "-m", "apodix", "mcp"], cwd=ROOT, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
         stderr=subprocess.DEVNULL, text=True, encoding="utf-8",
     )
-    arrived: list[tuple[float, int]] = []
+    arrived: list[int] = []
 
     def read():
         for line in proc.stdout:
             if line.strip():
-                arrived.append((time.time(), json.loads(line)["id"]))
+                arrived.append(json.loads(line)["id"])
 
     reader = threading.Thread(target=read, daemon=True)
     reader.start()
@@ -96,15 +104,14 @@ def test_a_ping_is_answered_while_a_long_check_is_still_running():
 
     send({"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": LATEST}})
     send({"jsonrpc": "2.0", "id": 2, "method": "tools/call",
-          "params": {"name": "verify_done", "arguments": {"project": "demo/cart", "max_mutants": 20}}})
-    time.sleep(2)                                           # the check is running now
+          "params": {"name": "verify_done", "arguments": {"project": str(tmp_path), "max_mutants": 2}}})
+    time.sleep(1)                                           # the check is running now: it needs at least 4 seconds
     send({"jsonrpc": "2.0", "id": 3, "method": "ping"})
     proc.stdin.close()
     proc.wait(timeout=180)
     reader.join(timeout=5)
 
-    order = [i for _, i in arrived]
-    assert order.index(3) < order.index(2), order          # the ping came back before the check finished
+    assert arrived.index(3) < arrived.index(2), arrived    # the ping came back before the check finished
 
 
 def test_done_with_a_barely_proven_criterion_says_so():

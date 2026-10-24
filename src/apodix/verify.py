@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import tempfile
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
@@ -145,7 +146,8 @@ def _judge(
         baseline = run_pytest(project, nodeids, cov_out=cov_file)
         if not baseline.passed:
             result.verdict = UNPROVEN
-            result.reason = "The linked tests fail on the current code."
+            last = baseline.output.strip()[-300:].replace("\n", " | ")
+            result.reason = f"The linked tests fail on the current code. Last output: {last}"
             return result
         raw = json.loads(cov_file.read_text(encoding="utf-8")) if cov_file.exists() else {}
     executed = {path: {int(line): depth for line, depth in lines.items()} for path, lines in raw.items()}
@@ -235,8 +237,16 @@ def verify(
     sources = source_files(project)
 
     log("Running the full test suite…")
-    full = run_pytest(project, [])
+    full = run_pytest(project, [], timeout=300)
     total, passed = count_tests(full.output)
+    if total == 0 and "skipped" not in full.output:
+        # Judging criteria against tests that never ran would say nothing true, so stop and show why
+        shown = full.output.strip()[-1200:] or "(pytest printed nothing)"
+        raise ValueError(
+            f"pytest ran no tests in {project}.\nPython used: {sys.executable}\n"
+            f"The tests must be runnable with that Python (pytest and the project's own packages installed in it).\n"
+            f"Last output:\n{shown}"
+        )
 
     with MutantRunner(project, _WORKERS) as runner:
         results = [
