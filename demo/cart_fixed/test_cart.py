@@ -29,6 +29,18 @@ def test_cart_of_only_no_discount_items_pays_full_price():
     assert cart_total([Item("gift card", 150, no_discount=True)]) == 150
 
 
+@pytest.mark.covers("R2")
+def test_no_discount_items_still_count_toward_the_threshold():
+    items = [Item("keyboard", 60), Item("gift card", 50, no_discount=True)]
+    assert cart_total(items) == 104.0
+
+
+@pytest.mark.covers("R2")
+def test_exactly_100_with_a_no_discount_item_gets_no_discount():
+    items = [Item("keyboard", 50), Item("gift card", 50, no_discount=True)]
+    assert cart_total(items) == 100
+
+
 @pytest.mark.covers("R3")
 def test_empty_code_changes_nothing():
     assert apply_promo_code(50, "") == 50

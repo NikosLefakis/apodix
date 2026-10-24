@@ -189,7 +189,7 @@
             <li class="s"><svg viewBox="0 0 76 76" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="8" width="48" height="60" rx="4"/><path d="M24 24h28M24 36h28M24 48h16" stroke="#7F93FF"/><path d="M20 22l2.5 2.5L27 20" stroke="#46D6A0"/></svg>
               <div><h3 data-i18n="how.s1h">Read the criteria</h3><p data-i18n="how.s1p">Reads acceptance criteria from a markdown file and keeps each one’s ID. GitHub issues are next.</p></div></li>
             <li class="s"><svg viewBox="0 0 76 76" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="32" cy="32" r="18"/><path d="M45 45l17 17" stroke="#7F93FF" stroke-width="4"/><path d="M22 32h20M32 22v20" stroke="#7F93FF"/></svg>
-              <div><h3 data-i18n="how.s2h">Find the evidence</h3><p data-i18n="how.s2p">Links each criterion to the tests marked to cover it, and records which code lines those tests ran.</p></div></li>
+              <div><h3 data-i18n="how.s2h">Find the evidence</h3><p data-i18n="how.s2p">Links each criterion to the tests marked to cover it (apodix suggest proposes them) and records which code ran while those tests executed.</p></div></li>
             <li class="s"><svg viewBox="0 0 76 76" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="14" width="56" height="48" rx="5"/><path d="M20 28h14M20 38h10M20 48h16" stroke="#7F93FF"/><path d="M46 14l-7 14 10 8-9 12 5 14" stroke="#FF6B88" stroke-width="3"/></svg>
               <div><h3 data-i18n="how.s3h">Break it on purpose</h3><p data-i18n="how.s3p">Changes the matching code in a scratch copy and reruns the tests. A real guard test turns red.</p></div></li>
             <li class="s"><svg viewBox="0 0 76 76" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="22" width="56" height="34" rx="5" transform="rotate(-6 38 38)" stroke="#46D6A0"/><path d="M26 39l8 8 16-16" stroke="#46D6A0" stroke-width="3.5" transform="rotate(-6 38 38)"/></svg>
@@ -252,11 +252,11 @@ python3 -m venv .venv
 <section class="fits" id="fits" aria-labelledby="fits-title">
   <div class="wrap">
     <h2 class="section-title" id="fits-title" data-i18n="fits.title">Works where you already work.</h2>
-    <p class="section-lead" data-i18n="fits.lead">Today only the command line exists. The other two are next, and will share the same engine and verdicts.</p>
+    <p class="section-lead" data-i18n="fits.lead">The command line and Claude Code work today. GitHub Actions is next and will share the same engine and verdicts.</p>
     <div class="fits-grid">
       <div class="fit">
         <h3>Claude Code</h3>
-        <p data-i18n-html="fits.a.p">Planned. Claude calls <code>verify_done</code> before it says it is finished, then fixes what is missing without you asking.</p>
+        <p data-i18n-html="fits.a.p">Available now as a prototype. Claude calls <code>verify_done</code> before it says it is finished, then fixes what is missing without you asking.</p>
         <code class="block">claude mcp add apodix -- apodix mcp</code>
       </div>
       <div class="fit">
@@ -286,6 +286,7 @@ python3 -m venv .venv
       <li data-i18n-html="lim.l1"><b>Languages</b><span>Python with pytest first. TypeScript is next.</span></li>
       <li data-i18n-html="lim.l2"><b>Kinds of rules</b><span>Anything a unit test can check. Visual layout and timing are out of scope for now.</span></li>
       <li data-i18n-html="lim.l3"><b>Outside services</b><span>Payments, email and other APIs need mocks. Apodix will say so when a rule depends on one.</span></li>
+      <li data-i18n-html="lim.l5"><b>Wide tests</b><span>A test that runs a lot of unrelated code dilutes its score. Name the functions a criterion is about to fix that.</span></li>
       <li data-i18n-html="lim.l4"><b>Vague criteria</b><span>“Make it feel fast” cannot be proven. Apodix flags it and asks for something measurable.</span></li>
     </ul>
   </div>

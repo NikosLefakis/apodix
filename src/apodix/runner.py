@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import os
+import queue
 import re
 import shutil
 import subprocess
 import sys
 import tempfile
+import threading
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -67,19 +69,53 @@ def import_root(copy: Path, file: Path) -> Path:
     return root
 
 
-def run_on_mutant(project: Path, file: Path, mutated_source: str, args: list[str]) -> RunResult:
-    """Copy the project to a scratch directory, swap in the mutated file, run the tests.
+class MutantRunner:
+    """Runs the tests against changed copies of one project.
 
-    The copy is put first on the import path and the run checks that the mutated file was really
-    imported. If the project imports its code from elsewhere (an editable install, say), the result
-    comes back with loaded=False instead of a misleading "the tests did not notice".
+    The project is copied once per worker (not once per change). For each change the runner takes a free
+    copy, swaps in the changed file, runs the tests, and puts the original file back. The copy is put first
+    on the import path and the run checks that the changed file was really imported. If the project imports
+    its code from elsewhere (an editable install, say), the result comes back with loaded=False instead of a
+    misleading "the tests did not notice".
     """
-    with tempfile.TemporaryDirectory(prefix="apodix-") as scratch:
-        copy = Path(scratch) / "project"
-        shutil.copytree(project, copy, ignore=_IGNORE)
-        target = copy / file.relative_to(project)
-        target.write_text(mutated_source, encoding="utf-8")
-        return run_pytest(copy, args, timeout=30, first_on_path=import_root(copy, target), expect_loaded=target)
+
+    def __init__(self, project: Path, workers: int):
+        self.project = project
+        self._scratch = tempfile.TemporaryDirectory(prefix="apodix-")
+        self._free: queue.Queue[Path] = queue.Queue()
+        base = Path(self._scratch.name)
+        for i in range(workers):
+            copy = base / f"copy{i}"
+            shutil.copytree(project, copy, ignore=_IGNORE)
+            self._free.put(copy)
+        self._originals: dict[Path, bytes] = {}
+        self._lock = threading.Lock()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        self._scratch.cleanup()
+
+    def _original(self, rel: Path, copy: Path) -> bytes:
+        with self._lock:
+            if rel not in self._originals:
+                self._originals[rel] = (copy / rel).read_bytes()
+            return self._originals[rel]
+
+    def run(self, file: Path, mutated_source: str, args: list[str]) -> RunResult:
+        rel = file.relative_to(self.project)
+        copy = self._free.get()
+        try:
+            target = copy / rel
+            original = self._original(rel, copy)
+            target.write_text(mutated_source, encoding="utf-8")
+            try:
+                return run_pytest(copy, args, timeout=30, first_on_path=import_root(copy, target), expect_loaded=target)
+            finally:
+                target.write_bytes(original)
+        finally:
+            self._free.put(copy)
 
 
 def count_tests(output: str) -> tuple[int, int]:

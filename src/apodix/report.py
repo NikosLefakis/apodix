@@ -16,6 +16,11 @@ def _paint(text: str, key: str, color: bool) -> str:
     return f"\033[{_ANSI[key]}m{text}\033[0m" if color else text
 
 
+def _where(o) -> str:
+    depth = f" (depth {o.depth})" if o.depth > 1 else ""
+    return f"{o.file}:{o.line}, {o.description}{depth}"
+
+
 def _summary(report: Report) -> str:
     verdict = "Done." if report.done else "Not done yet."
     return f"{report.proven} of {len(report.results)} proven. {verdict}"
@@ -36,11 +41,13 @@ def render_text(report: Report, color: bool = False) -> str:
         out.append(_paint(f"    {_LABEL[r.verdict]}. {r.reason}", "dim", color))
         if r.verdict == PROVEN and r.caught:
             c = r.caught[0]
-            out.append(_paint(f"    caught: line {c.line}, {c.description}", "dim", color))
+            out.append(_paint(f"    caught: {_where(c)}", "dim", color))
         for s in r.survived[:3]:
-            out.append(_paint(f"    survived: line {s.line}, {s.description}", "dim", color))
+            out.append(_paint(f"    survived: {_where(s)}", "dim", color))
         if len(r.survived) > 3:
             out.append(_paint(f"    …and {len(r.survived) - 3} more survived", "dim", color))
+        if r.hint:
+            out.append(_paint(f"    hint: {r.hint}", "dim", color))
         if r.tests:
             out.append(_paint(f"    tests: {', '.join(r.tests)}", "dim", color))
     out += ["", _paint(_summary(report), "bold", color)]
@@ -52,9 +59,11 @@ def render_markdown(report: Report) -> str:
     for r in report.results:
         evidence = r.reason
         if r.verdict == PROVEN and r.caught:
-            evidence += f" Example: line {r.caught[0].line}, {r.caught[0].description}."
+            evidence += f" Example: {_where(r.caught[0])}."
         elif r.survived:
-            evidence += f" Survived: line {r.survived[0].line}, {r.survived[0].description}."
+            evidence += f" Survived: {_where(r.survived[0])}."
+        if r.hint:
+            evidence += f" Hint: {r.hint}"
         rows.append(f"| **{r.id}** {r.text} | {_ICON[r.verdict]} {_LABEL[r.verdict]} | {evidence} |")
     return "\n".join([f"### Apodix: {_summary(report)}", "", *rows])
 

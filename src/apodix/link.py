@@ -70,7 +70,11 @@ def discover_tests(project: Path) -> list[TestCase]:
 
 def source_files(project: Path) -> list[Path]:
     """Project code that mutation may change: every .py file that is not a test or conftest."""
-    return [
-        p for p in _walk_files(project, "*.py")
-        if not p.name.startswith("test_") and p.name != "conftest.py"
-    ]
+    def is_test(path: Path) -> bool:
+        rel = path.relative_to(project)
+        return (
+            path.name.startswith("test_") or path.name.endswith("_test.py") or path.name == "conftest.py"
+            or any(part in ("tests", "test", "testing") for part in rel.parts[:-1])
+        )
+
+    return [p for p in _walk_files(project, "*.py") if not is_test(p)]
