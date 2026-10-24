@@ -117,7 +117,14 @@ the result afterwards by running `apodix verify` on the same folder.
   The agent said so itself afterwards and listed the gaps, which is the behavior we want, but it should not take
   a follow-up question. Change: `verify_done` now answers `DONE, WITH WEAK SPOTS` when a criterion is proven by under
   80% of the weight and lists what went unnoticed; its description says "proven is a floor, not a goal".
-- Later in the session the agent reported that the server had been removed from its configuration. The cause is
+- Later runs of `verify_done` inside the Desktop session reported "Ran 0 tests", then, after a clearer message was added,
+  "pytest did not finish within 300 seconds". **Cause found and reproduced:** the pytest child process inherited the
+  server's open stdin pipe while the server was blocked reading it, and on Windows the child hangs at startup. It never
+  showed in my own probes because they closed stdin right after sending the request; a real client keeps it open.
+  Fixed by starting pytest with `stdin=DEVNULL`. `test_a_check_finishes_while_the_clients_stdin_stays_open` keeps stdin open
+  and fails (after a 90 second wait) without the fix. The agent's own guess ("python is the Microsoft Store stub") was wrong:
+  the output showed the right interpreter, `.venv\Scripts\python.exe`.
+- Also reported once: the server was "removed from the session configuration". The cause is
   unknown. One possibility I fixed: the server answered one request at a time, so during a check of tens of seconds it
   could not answer a `ping`, and a client may treat that as a dead server. Tool calls now run on worker threads and
   pings are answered at once (`test_a_ping_is_answered_while_a_long_check_is_still_running`). Whether that was the

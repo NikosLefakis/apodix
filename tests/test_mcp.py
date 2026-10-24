@@ -125,3 +125,30 @@ def test_done_with_a_barely_proven_criterion_says_so():
     text = _headline(Report("p", "c.md", [strong, weak], 2, 2))
     assert text.startswith("DONE, WITH WEAK SPOTS") and "R2" in text and "cart.py:5" in text
     assert _headline(Report("p", "c.md", [strong, weak], 2, 1)) == "NOT DONE YET"   # a failing test is never DONE
+
+
+def test_a_check_finishes_while_the_clients_stdin_stays_open(tmp_path):
+    """A real client keeps stdin open and waits for the answer. On Windows the test runs used to hang here,
+    because the child process inherited the server's stdin pipe while the server was blocked reading it."""
+    import queue
+    import threading
+
+    (tmp_path / "lib.py").write_text("def f(x):\n    return x + 1\n")
+    (tmp_path / "test_lib.py").write_text(
+        "import pytest\nfrom lib import f\n\n@pytest.mark.covers('R1')\ndef test_f():\n    assert f(1) == 2\n")
+    (tmp_path / "criteria.md").write_text("- R1: f adds one\n")
+
+    proc = subprocess.Popen(
+        [sys.executable, "-m", "apodix", "mcp"], cwd=ROOT, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL, text=True, encoding="utf-8",
+    )
+    lines: queue.Queue = queue.Queue()
+    threading.Thread(target=lambda: [lines.put(l) for l in proc.stdout], daemon=True).start()
+    try:
+        proc.stdin.write(json.dumps({"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {
+            "name": "verify_done", "arguments": {"project": str(tmp_path), "max_mutants": 3}}}) + "\n")
+        proc.stdin.flush()                                  # and keep stdin open: do not close it
+        reply = json.loads(lines.get(timeout=90))           # a hang shows up as queue.Empty
+        assert reply["id"] == 1 and "R1" in reply["result"]["content"][0]["text"]
+    finally:
+        proc.kill()

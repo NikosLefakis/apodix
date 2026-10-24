@@ -51,8 +51,10 @@ def run_pytest(
         env["APODIX_COV_ROOT"] = str(project.resolve())
         env["APODIX_COV_OUT"] = str(cov_out)
     try:
+        # stdin=DEVNULL matters when Apodix runs as an MCP server: the child would otherwise inherit the
+        # server's open stdin pipe while the server is blocked reading it, and on Windows the child then hangs at startup.
         done = subprocess.run(
-            cmd, cwd=project, env=env, capture_output=True, text=True,
+            cmd, cwd=project, env=env, capture_output=True, text=True, stdin=subprocess.DEVNULL,
             encoding="utf-8", errors="replace", timeout=timeout,
         )
     except subprocess.TimeoutExpired:
