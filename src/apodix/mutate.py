@@ -22,9 +22,11 @@ _COMPARE = {
     ast.Eq: ast.NotEq, ast.NotEq: ast.Eq, ast.In: ast.NotIn, ast.NotIn: ast.In,
 }
 _BINOP = {ast.Add: ast.Sub, ast.Sub: ast.Add, ast.Mult: ast.Div, ast.Div: ast.Mult}
+_BOOLOP = {ast.And: ast.Or, ast.Or: ast.And}
 _SYMBOL = {
     ast.Gt: ">", ast.GtE: ">=", ast.Lt: "<", ast.LtE: "<=", ast.Eq: "==", ast.NotEq: "!=",
     ast.In: "in", ast.NotIn: "not in", ast.Add: "+", ast.Sub: "-", ast.Mult: "*", ast.Div: "/",
+    ast.And: "and", ast.Or: "or",
 }
 
 
@@ -171,6 +173,17 @@ class _Mutator(ast.NodeTransformer):
         if depth is not None and type(node.op) in _BINOP:
             old = type(node.op)
             new = _BINOP[old]
+            if self._hit(node, f"`{_SYMBOL[old]}` became `{_SYMBOL[new]}`", depth):
+                node.op = new()
+        return node
+
+    def visit_BoolOp(self, node):
+        # `a and b and c` is one node with three operands, so one change swaps the whole chain
+        self.generic_visit(node)
+        depth = self._depth(node)
+        if depth is not None and type(node.op) in _BOOLOP:
+            old = type(node.op)
+            new = _BOOLOP[old]
             if self._hit(node, f"`{_SYMBOL[old]}` became `{_SYMBOL[new]}`", depth):
                 node.op = new()
         return node
