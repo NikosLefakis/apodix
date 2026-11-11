@@ -12,6 +12,16 @@ from .report import render_json, render_markdown, render_text
 from .verify import verify
 
 
+def _percent(text: str) -> float:
+    try:
+        value = float(text)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"{text!r} is not a number") from None
+    if not 0 <= value <= 100:
+        raise argparse.ArgumentTypeError("must be between 0 and 100")
+    return value
+
+
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="apodix", description="Proof that your AI agent is actually done.")
     parser.add_argument("--version", action="version", version=f"apodix {__version__}")
@@ -26,6 +36,9 @@ def _build_parser() -> argparse.ArgumentParser:
                    help="only break code this many calls away from the tests (1 = functions the tests call directly)")
     v.add_argument("--max-mutants", type=int, default=150,
                    help="most changes to try per criterion, nearest code first (0 = no limit, default: 150)")
+    v.add_argument("--fail-under", type=_percent, default=100.0, metavar="PERCENT",
+                   help="exit 0 when at least this percent of the criteria are proven and every test passes "
+                        "(default: 100, which means every criterion)")
     v.add_argument("--format", choices=("text", "md", "json"), default="text")
     v.add_argument("--no-color", action="store_true")
     v.add_argument("--quiet", action="store_true", help="do not print progress")
@@ -76,7 +89,12 @@ def main(argv: list[str] | None = None) -> int:
     else:
         color = sys.stdout.isatty() and not args.no_color and "NO_COLOR" not in os.environ
         print(render_text(report, color))
-    return 0 if report.done else 1
+
+    passed = report.meets(args.fail_under)
+    if args.fail_under < 100 and not args.quiet:
+        verdict = "pass" if passed else "fail"
+        print(f"{report.proven_share:.0%} of the criteria proven, {args.fail_under:g}% required: {verdict}", file=sys.stderr)
+    return 0 if passed else 1
 
 
 def _suggest(args) -> int:

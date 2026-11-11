@@ -66,6 +66,15 @@ class Report:
     def done(self) -> bool:
         return self.proven == len(self.results) and self.tests_passed == self.tests_total
 
+    @property
+    def proven_share(self) -> float:
+        return self.proven / len(self.results) if self.results else 0.0
+
+    def meets(self, fail_under: float = 100.0) -> bool:
+        """Good enough for a CI gate: every test passes and at least `fail_under` percent of the criteria are
+        proven. 100 asks for every criterion, which is the same as `done`."""
+        return self.tests_passed == self.tests_total and self.proven_share * 100 >= fail_under - 1e-9
+
 
 def _norm(path: Path | str) -> str:
     return os.path.normcase(os.path.realpath(path))

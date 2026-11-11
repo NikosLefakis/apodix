@@ -32,7 +32,8 @@ py -3.12 -m venv .venv
 # -> 3 of 3 proven. Done.           (exit code 0)
 ```
 
-Other formats: `--format md` (PR comment), `--format json`. Run the prototype's own tests with
+Other formats: `--format md` (PR comment), `--format json`. As a CI gate, `--fail-under 80` exits 0 when at least 80% of the
+criteria are proven and every test passes (the default, 100, asks for every criterion). Run the prototype's own tests with
 `.venv\Scripts\python -m pytest` (about a minute, it runs the demos end to end).
 
 ## How it works
