@@ -42,7 +42,7 @@ Other formats: `--format md` (PR comment), `--format json`. Run the prototype's 
 3. Runs those tests once and records which lines of project code ran **while the tests executed** (not at import),
    and how many calls away from the test each line is.
 4. Breaks those lines one small change at a time, in a scratch copy
-   (`>` to `>=`, constants, conditions forced true or false, a dropped `not`, return values replaced by 0)
+   (`>` to `>=`, constants, conditions forced true or false, `and` swapped with `or`, a dropped `not`, return values replaced by 0)
    and reruns the linked tests on each variant. The copy goes first on the import path, so projects installed
    in editable mode are tested on the changed code too. A change the tests never imported is reported as
    untestable, never as a survivor.
